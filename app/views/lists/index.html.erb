@@ -1,1 +1,15 @@
-<h1>hello</h1>
+
+<h2><strong>Movies List</strong></h2>
+<ul class="list-group">
+  <% @lists.each do |list| %>
+    <li class="list-group-item"><%= link_to list.name, list_path(list.id), class: "link"%></li>
+    <%= link_to list_path(list), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+      <i class="fa fa-plus">Delete</i>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= link_to new_list_path do %>
+  <i class="fa fa-plus">Add a new list</i>
+<% end %>
+<br>
