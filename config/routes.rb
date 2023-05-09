@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   root to: "lists#index"
-  resources :lists do
-    resources :movies, only: %i[show index]
-    resources :bookmarks, only: %i[new destroy create]
+  resources :lists, except: %i[edit update] do
+    resources :movies, only: %i[new create]
+    resources :bookmarks, only: %i[new create]
   end
-
+  resources :bookmarks, only: :destroy
 end
