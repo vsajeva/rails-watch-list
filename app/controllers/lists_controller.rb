@@ -1,11 +1,13 @@
 class ListsController < ApplicationController
+  before_action :set_list, only: [:show, :destroy]
 
   def index
     @lists = List.all
   end
 
   def show
-    @list = List.find(params[:id])
+    @bookmark = Bookmark.new
+    @review = Review.new(list: @list)
   end
 
   def new
@@ -19,13 +21,11 @@ class ListsController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-
   end
 
   def destroy
-    @list = List.find(params[:id])
     @list.destroy
-    redirect_to root_path
+    redirect_to lists_path, status: :see_other
   end
 
   private
@@ -37,5 +37,4 @@ class ListsController < ApplicationController
   def list_params
     params.require(:list).permit(:name, :photo)
   end
-
 end
